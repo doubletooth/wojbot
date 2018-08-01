@@ -16,11 +16,11 @@ sc = SlackClient(read_secret('SLACK_BOT_API'))
 
 def post_new_user_tweet(screen_name, slack_channel='#nba'):
     with manage_state() as state:
-
         new_tweet_found = False
         state_key = 'last_tweet_{}'.format(screen_name)
 
-        for status in client.GetUserTimeline(screen_name=screen_name, since_id=state.get(state_key)):
+        timeline = client.GetUserTimeline(screen_name=screen_name, since_id=state.get(state_key))
+        for status in timeline:
             if not state.get(state_key) or not new_tweet_found:
                 state[state_key] = status.id
                 new_tweet_found = True
@@ -33,5 +33,4 @@ def post_new_user_tweet(screen_name, slack_channel='#nba'):
             )
 
 
-post_new_user_tweet('wojespn', '#nba')
-post_new_user_tweet('ShamsCharania', '#nba')
+post_new_user_tweet('_jakemiller', '@akshay')
