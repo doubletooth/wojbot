@@ -33,4 +33,9 @@ def post_new_user_tweet(screen_name, slack_channel='#nba'):
             )
 
 
-post_new_user_tweet('_jakemiller', '@akshay')
+post_new_user_tweet('_jakemiller', '#nba')
+post_new_user_tweet('wojespn', '#nba')
+post_new_user_tweet('ShamsCharania', '#nba')
+post_new_user_tweet('TheSteinLine', '#nba')
+post_new_user_tweet('latenightakshay', '#nba')
+post_new_user_tweet('tschultz4', '@akshay')
