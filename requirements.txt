@@ -5,10 +5,10 @@ future==0.16.0
 idna==2.6
 oauthlib==2.0.6
 python-twitter==3.3
-requests==2.18.4
+requests>=2.20.0
 requests-oauthlib==0.8.0
 six==1.11.0
 slackclient==1.1.2
 soupsieve==1.9.1
-urllib3==1.22
+urllib3>=1.24.2
 websocket-client==0.46.0
