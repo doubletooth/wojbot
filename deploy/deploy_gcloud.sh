@@ -2,6 +2,9 @@
 
 cd /home/akshay
 
+
+# TODO move out state file so script doesn't re-push same tweets multiple times
+
 echo "[gcloud] Extracting project..."
 tar -zxf slackbot.tar.gz
 

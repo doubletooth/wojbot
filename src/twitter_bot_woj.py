@@ -67,7 +67,6 @@ def post_new_user_tweet(screen_name, slack_channel, max_tweets_allowed):
         timeline = client.GetUserTimeline(
             screen_name=screen_name,
             since_id=state.get(state_key),
-            include_rts=False,
             exclude_replies=True,
         )[:max_tweets_allowed]  # only get the latest tweets back to max tweets allowed
 
