@@ -2,3 +2,4 @@ secret.txt
 state.txt
 .idea*
 *.pyc
+.DS_Store
