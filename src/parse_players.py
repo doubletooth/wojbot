@@ -33,15 +33,20 @@ def pull_nba_players(store_location):
         teams.append(team_full_name)
 
     whitelist = {
-        'whitelisted_phrases': ['league sources'],
+        'whitelisted_phrases': [
+            'league sources',
+            'sources say',
+            'trade',
+            'pick',
+            'camp',
+            'cap space',
+        ],
         'players': players,
         'coaches': coaches,
         'teams': teams,
     }
     with open(store_location, 'w') as f:
-        f.write(
-            json.dumps(whitelist, sort_keys=True, indent=2)
-        )
+        f.write(json.dumps(whitelist, sort_keys=True, indent=2) + '\n')
 
     return
 

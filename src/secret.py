@@ -26,8 +26,13 @@ def manage_state():
 
     Yields the state as a JSON object (dictionary or list) and saves the modified state on exit
     """
-    with open(STATE_FILE_NAME, 'r') as f:
-        data = json.load(f)
+    try:
+        with open(STATE_FILE_NAME, 'r') as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        data = {}  # load with nothing
+
     yield data  # since we're passing the object we create here, changes propagate back
+
     with open(STATE_FILE_NAME, 'w') as f:
-        f.write(json.dumps(data, sort_keys=True, indent=2))
+        f.write(json.dumps(data, sort_keys=True, indent=2) + '\n')
