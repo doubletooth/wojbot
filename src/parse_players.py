@@ -40,6 +40,10 @@ def pull_nba_players(store_location):
             'pick',
             'camp',
             'cap space',
+            'Sources',
+        ],
+        'blacklisted_urls': [
+            'espn.com'
         ],
         'players': players,
         'coaches': coaches,

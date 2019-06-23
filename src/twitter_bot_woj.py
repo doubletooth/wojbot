@@ -16,15 +16,21 @@ client = Api(
 sc = SlackClient(read_secret('SLACK_BOT_API'))
 
 
-def should_post_tweet(whitelist, tweet_text):
+def should_post_tweet(whitelist, tweet_text, tweet_urls):
     """
     Determines whether it should post a tweet based on the tweet contents
 
     :param dict whitelist:
     :param str tweet_text:
+    :param list tweet_urls:
     :rtype: bool
     """
     tweet_text = tweet_text.lower()
+
+    for url in tweet_urls:
+        for blocked_url in whitelist['blacklisted_urls']:
+            if blocked_url in url.expanded_url:
+                return False
 
     if any(phrase in tweet_text for phrase in whitelist['whitelisted_phrases']):
         return True
@@ -70,7 +76,7 @@ def post_new_user_tweet(screen_name, slack_channel, max_tweets_allowed):
                 state[state_key] = status.id
                 new_tweet_found = True
 
-            if should_post_tweet(whitelist, status.text):
+            if should_post_tweet(whitelist, status.text, status.urls):
                 sc.api_call(
                     'chat.postMessage',
                     channel=slack_channel,
