@@ -2,8 +2,8 @@ import json
 import os
 from contextlib import contextmanager
 
-SECRET_FILE_NAME = os.path.join(os.path.dirname(__file__), '..', 'secret', 'secret.txt')
-STATE_FILE_NAME = os.path.join(os.path.dirname(__file__), '..', 'secret', 'state.json')
+SECRET_FILE_NAME = os.path.join(os.path.dirname(__file__), '..', 'state', 'secret.txt')
+STATE_FILE_NAME = os.path.join(os.path.dirname(__file__), '..', 'state', 'state.json')
 
 
 def read_secret(secret):

@@ -1,6 +1,26 @@
 #!/usr/bin/env bash
 
-cd ..
+# Call this script from the slackbot root directory
+
+UPDATE_LOCAL=
+
+for i in "$@"
+do
+case ${i} in
+    --update-local-state)
+        UPDATE_LOCAL=1
+        ;;
+    *)
+        ;;
+esac
+done
+
+if [[ -n "$UPDATE_LOCAL" ]]; then
+    gcloud compute scp centos:~/slackbot/state/state.json state/state.json
+fi
+
+
+cd ..  # move out of the base level of the project to zip everything up
 
 echo "[local] Compressing project..."
 COPYFILE_DISABLE=true tar -zcf slackbot.tar.gz \

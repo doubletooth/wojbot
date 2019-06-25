@@ -61,7 +61,7 @@ def main():
     )
     parser.add_argument(
         '--store',
-        default=os.path.join(os.path.dirname(__file__), '..', 'secret', 'whitelist.json'),
+        default=os.path.join(os.path.dirname(__file__), '..', 'state', 'whitelist.json'),
         help='Where to store new whitelist file'
     )
     args = parser.parse_args()
