@@ -29,8 +29,9 @@ def pull_nba_players(store_location):
         coaches.append(coach_element.get('title').split('(')[0].lower())
 
     for team_element in soup.select('table.toccolours > tbody > tr > th:nth-child(1) > div:nth-child(1)'):
-        team_full_name = team_element.text.split('roster')[0]
-        teams.append(team_full_name)
+        team_full_name = team_element.text.split('roster')[0].strip()
+        teams.append(team_full_name.lower())
+        teams.append(team_full_name.rsplit(' ')[-1].lower())
 
     whitelist = {
         'whitelisted_phrases': [
