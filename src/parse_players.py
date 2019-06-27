@@ -43,7 +43,9 @@ def pull_nba_players(store_location):
             'Sources',
         ],
         'blacklisted_urls': [
-            'espn.com'
+            'espn.com',
+            'es.pn',
+            'newsletters',
         ],
         'players': players,
         'coaches': coaches,
