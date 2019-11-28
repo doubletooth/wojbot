@@ -8,16 +8,20 @@ from slackclient import SlackClient
 from secret import read_secret, manage_state
 
 
-def should_post_tweet(whitelist, tweet_text, tweet_urls):
+def should_post_tweet(whitelist, tweet_text, tweet_urls, only_state):
     """
     Determines whether it should post a tweet based on the tweet contents
 
     :param dict whitelist:
     :param str tweet_text:
     :param list tweet_urls:
+    :param bool only_state:
     :rtype: bool
     """
     tweet_text = tweet_text.lower()
+
+    if only_state:
+        return False
 
     for url in tweet_urls:
         for blocked_url in whitelist['blacklisted_urls']:
@@ -39,7 +43,7 @@ def should_post_tweet(whitelist, tweet_text, tweet_urls):
     return False
 
 
-def post_new_user_tweet(screen_name, slack_channel, max_tweets_allowed, twitter_client, slack_client):
+def post_new_user_tweet(screen_name, slack_channel, max_tweets_allowed, twitter_client, slack_client, only_state):
     """
     Posts a tweet from screen name in the given slack channel, up to the max tweets allowed
     Posts tweets reverse chronologically
@@ -49,6 +53,7 @@ def post_new_user_tweet(screen_name, slack_channel, max_tweets_allowed, twitter_
     :param int max_tweets_allowed:
     :param twitter.api.Api twitter_client: twitter client instance
     :param slackclient.client.SlackClient slack_client: slack client instance
+    :param bool only_state: only update the state file
     :rtype: NoneType
     """
     with open(os.path.join(os.path.dirname(__file__), '..', 'state', 'whitelist.json'), 'r') as f:
@@ -69,7 +74,7 @@ def post_new_user_tweet(screen_name, slack_channel, max_tweets_allowed, twitter_
                 state[state_key] = status.id
                 new_tweet_found = True
 
-            if should_post_tweet(whitelist, status.text, status.urls):
+            if should_post_tweet(whitelist, status.text, status.urls, only_state):
                 slack_client.api_call(
                     'chat.postMessage',
                     channel=slack_channel,
@@ -87,6 +92,8 @@ def main():
                         help='Max tweets to post per program invocation')
     parser.add_argument('--destination-channel', default='#nba',
                         help='Slack channel or user DM to post to. Channels start with #, users with @')
+    parser.add_argument('--only-state', action='store_true',
+                        help='Only update the state file, not update the slack channel')
 
     args = parser.parse_args()
 
@@ -99,7 +106,14 @@ def main():
     slack_client = SlackClient(read_secret('SLACK_BOT_API'))
 
     for user in args.twitter_user:
-        post_new_user_tweet(user, args.destination_channel, args.max_tweets_per_user, twitter_client, slack_client)
+        post_new_user_tweet(
+            user,
+            args.destination_channel,
+            args.max_tweets_per_user,
+            twitter_client,
+            slack_client,
+            args.only_state,
+        )
 
 
 if __name__ == '__main__':
