@@ -8,9 +8,9 @@ This repository holds various utility scripts I use every now and then to consum
 ## Setup
 
 The two main executables are within /src (where / is `/path/to/top/level` for this repo). 
-This project runs on python3.7+ (I may have stray `breakpoints` in my code), so you will need that as well as pipenv for your distribution.
+This project runs on python3.7+ (I may have stray `breakpoint()`s in my code), so you will need that as well as pipenv for your distribution.
 After installing those two tools, you need to configure your pipenv environment
-```bash
+```shell script
 cd /path/to/top/level
 pipenv install
 ```
@@ -18,8 +18,8 @@ pipenv install
 Once that's done, you should be able to run your scripts! 
 As a quick test, you should be able to generate the help message for the `parse_players.py` script
 
-```bash
-➜  wojbot git:(master) pipenv run python src/parse_players.py -h
+```shell script
+pipenv run python src/parse_players.py -h
 usage: parse_players.py [-h] [--store STORE]
 
 Pull NBA players list from Wikipedia page
@@ -36,7 +36,7 @@ It requires some tokens from twitter and slack bot api key.
 An example of these tokens is provided in `secret/secret.example.txt`.
 
 Usage:
-```bash
+```shell script
 cd /path/to/top/level
 pipenv run python src/twitter_bot_woj.py latenightakshay --destination-channel "@akshay" --max-tweets-per-user 1
 ```
@@ -58,7 +58,7 @@ The first time you run the script you have to fulfill the authentication flow, b
 I dump the credentials.json in the top level of this project and .gitignore the file as well as the pickled cred object for easy reuse.
 Then, to run the script from the repo top level, I just
 
-```bash
+```shell script
 cd /path/to/top/level
 pipenv run python src/schedule.py --calendar-name "Philadelphia 76ers"
 ```
