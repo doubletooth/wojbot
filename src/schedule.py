@@ -143,7 +143,6 @@ class GameManager:
             'end': {
                 'dateTime': game.end_time.isoformat(),
             },
-            'colorId': 1
         }
 
         resp = self.service.events().insert(
