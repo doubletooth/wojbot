@@ -1,23 +1,51 @@
-## Misc Scripts
+# The WojBot Repository
 
 This repository holds various utility scripts I use every now and then to consume NBA basketball. As of right now there are two scripts
 
 * [Woj Bot For Slack](#woj-bot)
 * [Team Schedule To Google Calendar](#team-schedule-to-google-calendar)
 
+## Setup
+
+The two main executables are within /src (where / is `/path/to/top/level` for this repo). 
+This project runs on python3.7+ (I may have stray `breakpoints` in my code), so you will need that as well as pipenv for your distribution.
+After installing those two tools, you need to configure your pipenv environment
+```bash
+cd /path/to/top/level
+pipenv install
+```
+
+Once that's done, you should be able to run your scripts! 
+As a quick test, you should be able to generate the help message for the `parse_players.py` script
+
+```bash
+➜  wojbot git:(master) pipenv run python src/parse_players.py -h
+usage: parse_players.py [-h] [--store STORE]
+
+Pull NBA players list from Wikipedia page
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --store STORE  Where to store new whitelist file
+```
+
 ### Woj Bot For Slack
 
 A simple bot to post tweets from a timeline to a slack group. 
 It requires some tokens from twitter and slack bot api key. 
-An example of these tokens is provided in secret/secret.example.txt.
+An example of these tokens is provided in `secret/secret.example.txt`.
 
-The two main source files run under python3+ (tested on 3.6 and 3.7), and all requirements are in requirements.txt.
-Run --help on either src/twitter_bot_woj.py or src/parse_players.py to determine how to run.
+Usage:
+```bash
+cd /path/to/top/level
+pipenv run python src/twitter_bot_woj.py latenightakshay --destination-channel "@akshay" --max-tweets-per-user 1
+```
+In the case above, I'm pushing the last tweet I tweeted to myself to my personal channel on Slack. 
+It's useful to do the testing on yourself or a private channel to not bother others. 
+Otherwise, the tool just spams you and there's no rate limiting.
 
-As a side note, you probably wanna try posting to private channels to not bother other people.
-
-As another side note, the deploy scripts are probably not useful for you. 
-They're just for me to deploy to my droplet easily.
+To deploy, I just run a cron job once a minute during trade deadline season to stay up to date on my NBA breaking news.
+I set that up using my deploy scripts, which are probably not useful to you. They're just helpers for me to push to my droplet
 
 ### Team Schedule To Google Calendar
 
@@ -38,6 +66,6 @@ pipenv run python src/schedule.py --calendar-name "Philadelphia 76ers"
 I'm probably gonna run this once a year, but whatever
 
 
-## Questions
+# Questions
 
 Feel free to open up an issue if you have any questions!
