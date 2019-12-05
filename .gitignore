@@ -4,3 +4,5 @@ state.txt
 *.pyc
 .DS_Store
 Pipfile.lock
+token.pickle
+credentials.json
