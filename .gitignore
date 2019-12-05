@@ -3,6 +3,5 @@ state.txt
 .idea*
 *.pyc
 .DS_Store
-Pipfile.lock
 token.pickle
 credentials.json

@@ -20,6 +20,10 @@ slackclient = "==1.1.2"
 soupsieve = "==1.9.1"
 urllib3 = ">=1.24.2"
 websocket_client = "==0.46.0"
+python-dateutil = "*"
+google-api-python-client = "*"
+google-auth-httplib2 = "*"
+google-auth-oauthlib = "*"
 
 [requires]
 python_version = "3.7"
