@@ -19,6 +19,7 @@ Once that's done, you should be able to run your scripts!
 As a quick test, you should be able to generate the help message for the `parse_players.py` script
 
 ```shell script
+cd /path/to/top/level
 pipenv run python src/parse_players.py -h
 usage: parse_players.py [-h] [--store STORE]
 
